@@ -1,0 +1,25 @@
+
+//RESTFUL
+
+//Rule -1
+
+//Get
+//get all employee detail
+//localhost:3000/users
+//localhost:3000/id
+
+//POST
+//Data ADD - JSON
+//localhost:3000/{user-detail}
+
+//PATCH 
+//Update the data 
+//localhost:300/{data}
+
+//DELETE
+//Deleted the specied user
+//localhost:3000/id
+
+//Rule-2
+
+//JSON//HTML
