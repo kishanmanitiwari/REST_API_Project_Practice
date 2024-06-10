@@ -7,9 +7,13 @@ const app = express();
 const PORT = 3000;
 const __dirname = path.resolve('./');
 
+//Middleware
+app.use(express.urlencoded({extended:true}));
+
 
 
 //Routes
+//GET 
 
 app.get('/users',(req,res)=>{
     const html = `<ul> 
@@ -21,6 +25,14 @@ app.get('/users',(req,res)=>{
 
 app.get('/api/users',(req,res)=>{
     res.json(users);
+})
+
+//Dynamic routing
+app.get('/api/users/:id',(req,res)=>{
+    // console.log(req.params);
+    const id = Number(req.params.id);
+    const user = users.find((user)=>user.id==id);
+    res.json(user)
 })
 
 
