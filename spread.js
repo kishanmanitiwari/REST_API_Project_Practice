@@ -14,7 +14,13 @@
 
 //Overwirte
 
-const obj1 = {a:1,b:2};
-const obj2 = {a:3,b:4};
-const ans = {...obj2,...obj1}
-console.log(ans); //
+// const obj1 = {a:1,b:2};
+// const obj2 = {a:3,b:4};
+// const ans = {...obj2,...obj1}
+// console.log(ans); //
+
+
+let arr = [1,2,3,4,5];
+arr.splice(3,2);
+
+console.log(arr);
