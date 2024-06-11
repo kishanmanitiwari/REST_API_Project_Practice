@@ -12,6 +12,8 @@
 //Data ADD - JSON
 //localhost:3000/{user-detail}
 
+//PUT - Request - HW
+
 //PATCH 
 //Update the data 
 //localhost:300/{data}
@@ -22,4 +24,4 @@
 
 //Rule-2
 
-//JSON//HTML
+//JSON//HTML//Status Code//Message
