@@ -29,6 +29,11 @@ app.get("/api/users", (req, res) => {
 app.get("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
   const user = users.find((user) => user.id == id);
+  
+  if (!user) {
+    res.status(404).json({ error: "User not found" });
+  }
+
   res.json(user);
 });
 
@@ -54,8 +59,27 @@ app.post("/api/users", (req, res) => {
 
 //PUT Route - HW
 
-app.put("/api/users", (req, res) => {
-  //Write your put code over here
+app.put("/api/users/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const userIndex = users.findIndex((user) => user.id == id);
+
+  if (userIndex == -1) {
+    return res.status(404).json({ error: "User not found" });
+  }
+
+  const updatedUser = { ...users[userIndex], ...req.body };
+  users[userIndex] = updatedUser;
+
+  //Sync
+  try {
+    fs.writeFileSync(
+      path.join(__dirname, "MOCK_DATA.json"),
+      JSON.stringify(users)
+    );
+    return res.json({ status: "User sucessfully updated", user: updatedUser });
+  } catch (error) {
+    return res.status(505).json({ error: "Failed to update the user" });
+  }
 });
 
 //Patch - Update
