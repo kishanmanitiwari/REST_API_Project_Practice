@@ -26,27 +26,42 @@ app.get("/api/users", (req, res) => {
 });
 
 //Query Route
-app.get('/api/users/filter',(req,res)=>{
-  //Bring the query data
-  const queryGender = req.query.gender; //Male //Female
+app.get("/api/users/filter", (req, res) => {
+  // Retrieve query parameters (consider validation for robustness)
+  const queryGender = req.query.gender?.toLowerCase(); // Handle missing query and case-insensitivity
+  const queryJob = req.query.job_title;
 
-  const filteredData = users.filter((user)=>user.gender === queryGender);
+  // Filter logic with improved readability and handling for undefined queryJob
+  // Simplified filter logic using destructuring and optional chaining
+  const filteredData = users.filter(user => {
+    const { gender, job_title } = user; // Destructuring for cleaner access
+    return (
+      (!queryGender || gender.toLowerCase() === queryGender) &&
+      (!queryJob || job_title === queryJob)
+    );
+  });
 
-  return res.json(filteredData)
-})
+  // Return filtered data or appropriate error message
+  if (filteredData.length > 0) {
+    return res.json(filteredData);
+  } else {
+    // Handle no matching users gracefully (e.g., informative message)
+    return res.status(404).json({ message: "No users found matching your criteria." });
+  }
+});
+
 
 //Dynamic routing
 app.get("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
   const user = users.find((user) => user.id == id);
-  
+
   if (!user) {
     res.status(404).json({ error: "User not found" });
   }
 
   res.json(user);
 });
-
 
 //POST Route
 
@@ -122,6 +137,9 @@ app.patch("/api/users/:id", (req, res) => {
 
 //Delete -
 //localhost:3000/api/users/101 - Delete
+
+//Delete
+
 app.delete("/api/users/:id", (req, res) => {
   //Find the user to delete
   const id = Number(req.params.id);
