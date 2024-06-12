@@ -25,6 +25,16 @@ app.get("/api/users", (req, res) => {
   res.json(users);
 });
 
+//Query Route
+app.get('/api/users/filter',(req,res)=>{
+  //Bring the query data
+  const queryGender = req.query.gender; //Male //Female
+
+  const filteredData = users.filter((user)=>user.gender === queryGender);
+
+  return res.json(filteredData)
+})
+
 //Dynamic routing
 app.get("/api/users/:id", (req, res) => {
   const id = Number(req.params.id);
@@ -36,6 +46,7 @@ app.get("/api/users/:id", (req, res) => {
 
   res.json(user);
 });
+
 
 //POST Route
 
