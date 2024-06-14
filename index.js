@@ -10,6 +10,9 @@ const __dirname = path.resolve("./");
 //Middleware
 app.use(express.urlencoded({ extended: true }));
 
+//Handle Json data - Middleware
+app.use(express.json());
+
 //Routes
 //GET
 
